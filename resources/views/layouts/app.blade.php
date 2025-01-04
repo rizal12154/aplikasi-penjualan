@@ -22,7 +22,7 @@
                 @include('layouts.navbar')
                 <!-- end of navbar -->
 
-                <div class="pb-20">
+                <div class="px-6 pb-20 pt-6">
                     @yield('content')
                 </div>
                 @include('layouts.footer')
