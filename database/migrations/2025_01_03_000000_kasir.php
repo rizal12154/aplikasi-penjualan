@@ -11,12 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Buat tabel kasir terlebih dahulu
-        Schema::create('kasir', function (Blueprint $table) {
+        // Tabel merk
+        Schema::create('merk', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('username')->unique();
-            $table->string('password');
+            $table->string('nama')->unique();
+            $table->timestamps();
+        });
+
+        // Tabel kategori
+        Schema::create('kategori', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama')->unique();
             $table->timestamps();
         });
 
@@ -25,6 +30,8 @@ return new class extends Migration
             $table->id();
             $table->string('kode_barang')->unique();
             $table->string('nama_barang');
+            $table->foreignId('id_merk')->nullable()->constrained('merk')->onDelete('set null');
+            $table->foreignId('id_kategori')->nullable()->constrained('kategori')->onDelete('set null');
             $table->decimal('harga_beli', 10, 2);
             $table->decimal('harga_jual', 10, 2);
             $table->integer('stok');
@@ -37,6 +44,15 @@ return new class extends Migration
             $table->string('nama');
             $table->string('kontak')->nullable();
             $table->string('alamat')->nullable();
+            $table->timestamps();
+        });
+
+        // Tabel kasir
+        Schema::create('kasir', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama');
+            $table->string('username')->unique();
+            $table->string('password');
             $table->timestamps();
         });
 
@@ -68,8 +84,10 @@ return new class extends Migration
     {
         Schema::dropIfExists('detail_transaksi');
         Schema::dropIfExists('transaksi');
+        Schema::dropIfExists('kasir');
         Schema::dropIfExists('pelanggan');
         Schema::dropIfExists('barang');
-        Schema::dropIfExists('kasir');
+        Schema::dropIfExists('kategori');
+        Schema::dropIfExists('merk');
     }
 };
