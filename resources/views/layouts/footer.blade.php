@@ -5,9 +5,9 @@
                 ©
                 <script>
                     document.write(new Date().getFullYear())
-                </script>, made with <span class="text-danger"><i
+                </script>, Dibuat Oleh <span class="text-danger"><i
                         class="tf-icons ri-heart-fill"></i></span> by <a href="https://pixinvent.com/" target="_blank"
-                    class="footer-link">Pixinvent</a>
+                    class="footer-link">Rizal Ali Baba</a>
             </div>
         </div>
     </div>
