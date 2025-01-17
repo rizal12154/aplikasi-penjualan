@@ -1,30 +1,43 @@
 @include('layouts.style')
 
-<div class="px-6 pb-20 pt-6">
-    <div class="flex items-center mb-4 justify-between">
-        <!-- title -->
-        <h1 class="inline-block xl:text-xl text-lg font-semibold leading-6">Selamat Datang</h1>
-        {{-- <a href="#"
-            class="btn bg-indigo-600 text-white border-indigo-600 hover:bg-indigo-800 hover:border-indigo-800 active:bg-indigo-800 active:border-indigo-800 focus:outline-none focus:ring-4 focus:ring-indigo-300 md:visible invisible">
-            Button
-        </a> --}}
-    </div>
-    <div class="bg-indigo-600 rounded-lg mb-6">
-        <div class="p-6 md:flex justify-between items-center w-full">
-            <div class="flex items-center gap-6">
-                <img src="assets/images/avatar/avatar-3.jpg" alt="Image" class="rounded-full h-20 w-20" />
-                <div class="leading-base">
-                    <h3 class="text-white text-lg lg:text-xl">Good afternoon, Jitu Chauhan</h3>
-                    <span class="text-white">Here is what’s happening with your projects today:</span>
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="card">
+        <h5 class="card-header">Extended Modals</h5>
+        <div class="card-body">
+            <div class="row gy-3">
+
+                <!-- Transparent Modal -->
+                <div class="col-lg-4 col-md-6">
+                    <small class="text-light fw-medium">Transparent Modal</small>
+                    <div class="mt-4">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modals-transparent">Show</button>
+
+                        <!-- Modal template -->
+                        <div class="modal modal-transparent fade" id="modals-transparent" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <a href="javascript:void(0);" class="btn-close text-white"
+                                            data-bs-dismiss="modal" aria-label="Close"></a>
+                                        <p class="text-white text-large fw-light mb-4">Subscribe to get latest updates
+                                        </p>
+                                        <div class="input-group input-group-lg mb-4">
+                                            <input type="text" class="form-control bg-white border-0"
+                                                placeholder="Your email" aria-describedby="subscribe">
+                                            <button class="btn btn-primary" type="button"
+                                                id="subscribe">Subscribe</button>
+                                        </div>
+                                        <div class="text-start text-white">We won't share your email address</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="hidden lg:block">
-                <a href="/dashboard"
-                    class="btn gap-x-2 bg-white text-gray-800 border-white disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-700 hover:border-gray-700 active:bg-gray-700 active:border-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300">
-                    Masuk
-                </a>
             </div>
         </div>
     </div>
+</div>
 
 @include('layouts.script')

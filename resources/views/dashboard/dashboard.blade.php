@@ -1,121 +1,78 @@
-@extends('layouts.app')
+@extends('layouts.template')
 
-@section('title', 'Dashboard');
+@section('title', 'Dashboard')
 
 @section('content')
-    <div class="flex items-center mb-4 justify-between">
-        <!-- title -->
-        <h1 class="inline-block xl:text-xl text-lg font-semibold leading-6">Ecommerce</h1>
-        <a href="#!"
-            class="btn bg-indigo-600 text-white border-indigo-600 hover:bg-indigo-800 hover:border-indigo-800 active:bg-indigo-800 active:border-indigo-800 focus:outline-none focus:ring-4 focus:ring-indigo-300 md:visible invisible">
-            Add Product
-        </a>
-    </div>
-    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
-        <div class="card h-full card-lift">
-            <div class="flex flex-col gap-3 card-body">
-                <div class="flex justify-between items-center">
-                    <span class="text-gray-500 font-semibold">Orders</span>
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="feather feather-shopping-cart text-cyan-600">
-                            <circle cx="9" cy="21" r="1"></circle>
-                            <circle cx="20" cy="21" r="1"></circle>
-                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                        </svg>
-                    </span>
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="row g-6">
+            <!-- Gamification Card -->
+            <div class="col-md-12 col-xxl-8">
+                <div class="card">
+                    <div class="d-flex align-items-end row">
+                        <div class="col-md-6 order-2 order-md-1">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">Congratulations <span class="fw-bold">John!</span> 🎉</h4>
+                                <p class="mb-0">You have done 68% 😎 more sales today.</p>
+                                <p>Check your new badge in your profile.</p>
+                                <a href="javascript:;" class="btn btn-primary">View Profile</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end order-1 order-md-2">
+                            <div class="card-body pb-0 px-0 pt-2">
+                                <img src="assets/img/illustrations/illustration-john-light.png" height="186"
+                                    class="scaleX-n1-rtl" alt="View Profile"
+                                    data-app-light-img="illustrations/illustration-john-light.png"
+                                    data-app-dark-img="illustrations/illustration-john-dark.html">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex items-center leading-normal">
-                    <h3 class="font-bold">5,312</h3>
-                    <span class="ml-2 flex items-center text-red-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="feather feather-arrow-down">
-                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                            <polyline points="19 12 12 19 5 12"></polyline>
-                        </svg>
-                        2.29%
-                    </span>
+                <div class="row mb-lg-6 mb-2 pt-3" id="sortable-cards">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card mb-lg-0 mb-6">
+                            <div class="card-body text-center">
+                                <h2>
+                                    <i class="ri-shopping-cart-2-line text-success ri-24px"></i>
+                                </h2>
+                                <h4>Monthly Sales</h4>
+                                <h5>2362</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card mb-lg-0 mb-6">
+                            <div class="card-body text-center">
+                                <h2>
+                                    <i class="ri-global-line text-info ri-24px"></i>
+                                </h2>
+                                <h4>Monthly Visits</h4>
+                                <h5>687,123</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card mb-lg-0 mb-6">
+                            <div class="card-body text-center">
+                                <h2>
+                                    <i class="ri-gift-line text-danger ri-24px"></i>
+                                </h2>
+                                <h4>Products</h4>
+                                <h5>985</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card mb-lg-0 mb-6">
+                            <div class="card-body text-center">
+                                <h2>
+                                    <i class="ri-user-3-line text-primary ri-24px"></i>
+                                </h2>
+                                <h4>Users</h4>
+                                <h5>105,652</h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <a href="#!" class="text-indigo-600 font-semibold">View Orders</a>
-            </div>
-        </div>
-
-        <div class="card h-full card-lift">
-            <div class="flex flex-col gap-3 card-body">
-                <div class="flex justify-between items-center">
-                    <span class="text-gray-500 font-semibold">Revenue</span>
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="feather feather-dollar-sign text-cyan-600">
-                            <line x1="12" y1="1" x2="12" y2="23"></line>
-                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                        </svg>
-                    </span>
-                </div>
-                <div class="flex items-center leading-normal">
-                    <h3 class="font-bold">$8,312</h3>
-                    <span class="ml-2 flex items-center text-green-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="feather feather-arrow-up">
-                            <line x1="12" y1="19" x2="12" y2="5"></line>
-                            <polyline points="5 12 12 5 19 12"></polyline>
-                        </svg>
-                        2.29%
-                    </span>
-                </div>
-                <a href="#!" class="text-indigo-600 font-semibold">View Earnings</a>
-            </div>
-        </div>
-        <div class="card h-full card-lift">
-            <div class="flex flex-col gap-3 card-body">
-                <div class="flex justify-between items-center">
-                    <span class="text-gray-500 font-semibold">Customer</span>
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="feather feather-user text-cyan-600">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                    </span>
-                </div>
-                <div class="flex items-center leading-normal">
-                    <h3 class="font-bold">$15,312</h3>
-                    <span class="ml-2 flex items-center text-green-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="feather feather-arrow-up">
-                            <line x1="12" y1="19" x2="12" y2="5"></line>
-                            <polyline points="5 12 12 5 19 12"></polyline>
-                        </svg>
-                        5.16%
-                    </span>
-                </div>
-                <a href="#!" class="text-indigo-600 font-semibold">All Customer</a>
-            </div>
-        </div>
-
-        <div class="card h-full card-lift">
-            <div class="flex flex-col gap-3 card-body">
-                <div class="flex justify-between items-center">
-                    <span class="text-gray-500 font-semibold">Balance</span>
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="feather feather-credit-card text-cyan-600">
-                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                            <line x1="1" y1="10" x2="23" y2="10"></line>
-                        </svg>
-                    </span>
-                </div>
-                <div class="flex items-center leading-normal">
-                    <h3 class="font-bold">$35.64k</h3>
-                </div>
-                <a href="#!" class="text-indigo-600 font-semibold">Withdraw Money</a>
             </div>
         </div>
     </div>
