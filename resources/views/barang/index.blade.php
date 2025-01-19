@@ -17,18 +17,21 @@
                 <table class="datatables-products table">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th></th>
-                            <th>product</th>
-                            <th>category</th>
-                            <th>stock</th>
-                            <th>sku</th>
-                            <th>price</th>
-                            <th>qty</th>
-                            <th>status</th>
+                            <th>No.</th>
+                            <th>Kode Barang</th>
+                            <th>produk</th>
+                            <th>Kategori</th>
+                            <th>Stok</th>
+                            <th>Merk</th>
+                            <th>Harga</th>
                             <th>actions</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>

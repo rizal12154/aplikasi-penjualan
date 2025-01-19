@@ -1,45 +1,54 @@
 @extends('layouts.template')
 
-@section('title', 'Semua Barang')
+@section('title', 'Master Barang')
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
+                    <a href="/tambah_master" class="btn btn-primary mb-3">Tambah Barang</a>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Project</th>
-                                <th>Client</th>
-                                <th>Users</th>
+                                <th>Nama Barang</th>
+                                <th>Stok</th>
+                                <th>Harga Beli</th>
+                                <th>Harga Jual</th>
+                                <th>Kategori</th>
+                                <th>Jenis</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown"><i class="ri-more-2-line"></i></button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="/tambah_master"><i
-                                                    class="ri-pencil-line me-1"></i>
-                                                Edit</a>
-                                            <a class="dropdown-item" href="/hapus"><i
-                                                    class="ri-delete-bin-7-line me-1"></i> Hapus</a>
+                            @foreach ($master as $get)
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $get->nama_barang }}</td>
+                                    <td>{{ $get->stok }}</td>
+                                    <td>{{ $get->harga_beli }}</td>
+                                    <td>{{ $get->harga_jual }}</td>
+                                    <td>{{ $get->kategori->nama }}</td>
+                                    <td>{{ $get->merk->nama }}</td>
+                                    <td>{{ }}</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown"><i class="ri-more-2-line"></i></button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="/tambah_master"><i
+                                                        class="ri-pencil-line me-1"></i>
+                                                    Edit</a>
+                                                <a class="dropdown-item" href="/hapus"><i
+                                                        class="ri-delete-bin-7-line me-1"></i> Hapus</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                         </tbody>
+                        @endforeach
                     </table>
                 </div>
             </div>
