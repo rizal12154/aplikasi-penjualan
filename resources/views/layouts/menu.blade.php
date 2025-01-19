@@ -24,7 +24,7 @@
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="/history" class="menu-link" target="_blank">
+                        <a href="/history" class="menu-link">
                             <i class="menu-icon tf-icons ri-chat-history-line"></i>
                             <div data-i18n="Histori Penjualan">Histori Penjualan</div>
                         </a>
@@ -70,7 +70,7 @@
 
             <!-- Components -->
             <li class="menu-item">
-                <a href="/master-barang" class="menu-link">
+                <a href="/master_barang" class="menu-link">
                     <i class="menu-icon tf-icons ri-archive-line"></i>
                     <div data-i18n="Master Barang">Master Barang</div>
                 </a>

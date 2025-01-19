@@ -4,18 +4,13 @@
     data-assets-path="assets/" data-template="horizontal-menu-template" data-style="light">
 
 <head>
+    <!-- Style -->
     @include('layouts.style')
     <title>@yield('title')</title>
-
 </head>
 
 <body>
 
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5J3LMKC" height="0" width="0"
-            style="display: none; visibility: hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
-    <!-- Layout wrapper -->
     <div class="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
         <div class="layout-container">
 
@@ -48,7 +43,6 @@
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 
-    <!-- Drag Target Area To SlideIn Menu On Small Screens -->
     <div class="drag-target"></div>
 
     <!-- Core JS -->
