@@ -12,7 +12,8 @@
                             <h5 class="mb-0">Tambah Merk</h5>
                         </div>
                         <div class="card-body">
-                            <form>
+                            <form action="{{ 'tambah.merk' }}" method="post">
+                                @csrf
                                 <div class="input-group input-group-merge mb-6">
                                     <span id="nama_merk" class="input-group-text"><i class="ri-user-line"></i></span>
                                     <div class="form-floating form-floating-outline">
@@ -26,7 +27,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="/merk" class="btn btn-danger">Kembali</a>
+                                <a href="{{ 'merk' }}" class="btn btn-danger">Kembali</a>
                             </form>
                         </div>
                     </div>

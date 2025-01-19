@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
-                    <a href="/tambah_merk" class="btn btn-primary mb-3">Tambah Merk</a>
+                    <a href="{{ ('merk_tambah') }}" class="btn btn-primary mb-3">Tambah Merk</a>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -17,7 +17,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($master as $get)
+                            @foreach ($merk as $get)
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $get->nama }}</td>

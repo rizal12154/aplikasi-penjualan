@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
-                    <a href="/tambah_master" class="btn btn-primary mb-3">Tambah Barang</a>
+                    <a href="{{ ('tambah.master') }}" class="btn btn-primary mb-3">Tambah Barang</a>
                     <table class="table table-bordered">
                         <thead>
                             <tr>

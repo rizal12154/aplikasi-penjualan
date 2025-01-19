@@ -12,7 +12,8 @@
                             <h5 class="mb-0">Tambah Kategori</h5>
                         </div>
                         <div class="card-body">
-                            <form>
+                            <form action="{{ ('tambah.kategori') }}" method="post">
+                                @csrf
                                 <div class="input-group input-group-merge mb-6">
                                     <span id="nama_kategori" class="input-group-text"><i class="ri-user-line"></i></span>
                                     <div class="form-floating form-floating-outline">
