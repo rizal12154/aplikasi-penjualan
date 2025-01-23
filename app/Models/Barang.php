@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Kategori;
-use App\Models\Merk;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,12 +22,12 @@ class Barang extends Model
         'stok',
     ];
 
-    public function Merk()
+    public function merk()
     {
         return $this->belongsTo(Merk::class, 'id_merk');
     }
 
-    public function Kategori()
+    public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'id_kategori');
     }

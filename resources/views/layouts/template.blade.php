@@ -26,6 +26,13 @@
                     @include('layouts.menu')
                     <!-- / Menu -->
                     <!-- Content -->
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <strong>Success!</strong>{{ $message }}.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            </button>
+                        </div>
+                    @endif
                     @yield('content')
                     <!--/ Content -->
 

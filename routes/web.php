@@ -1,50 +1,72 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\KasirController;
 
 
-Route::get('/', function () {
-    return view('welcome');
+// Login Routes
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Dashboard Route (Protected by 'auth')
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    // Kasir
+    Route::prefix('kasir')->name('kasir.')->group(function () {
+        Route::get('/', [KasirController::class, 'index'])->name('index');
+        Route::get('/search-barang', [KasirController::class, 'searchBarang'])->name('search');
+        Route::post('/store-transaksi', [KasirController::class, 'storeTransaksi'])->name('store');
+        Route::get('/nota/{id}', [KasirController::class, 'nota'])->name('nota');
+    });
+
+    // Penjualan
+    Route::prefix('penjualan')->name('penjualan.')->group(function () {
+        Route::get('/penjualan', [PenjualanController::class, 'penjualan'])->name('index');
+        Route::get('/history', [PenjualanController::class, 'history'])->name('history');
+        Route::get('/pelanggan', [PenjualanController::class, 'pelanggan'])->name('pelanggan');
+    });
+
+    // Barang
+    Route::prefix('barang')->name('barang.')->group(function () {
+        Route::get('/barang', [BarangController::class, 'barang'])->name('index');
+        Route::get('/tambah', [BarangController::class, 'tambah_barang'])->name('create');
+        Route::post('/barang', [BarangController::class, 'store_barang'])->name('store');
+
+        // Kategori
+        Route::prefix('kategori')->name('kategori.')->group(function () {
+            Route::get('/', [BarangController::class, 'kategori'])->name('index');
+            Route::get('/tambah', [BarangController::class, 'kategori_tambah'])->name('create');
+            Route::post('/', [BarangController::class, 'kategori_store'])->name('store');
+        });
+
+        // Merk
+        Route::prefix('merk')->name('merk.')->group(function () {
+            Route::get('/', [BarangController::class, 'merk'])->name('index');
+            Route::get('/tambah', [BarangController::class, 'merk_tambah'])->name('create');
+            Route::post('/', [BarangController::class, 'merk_store'])->name('store');
+        });
+
+    });
+
+    // Laporan
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+
+    // Master Barang
+    Route::prefix('master_barang')->name('master.')->group(function () {
+        Route::get('/master', [MasterController::class, 'index'])->name('index');
+        Route::get('/tambah', [MasterController::class, 'tambah'])->name('create');
+        Route::post('/master', [MasterController::class, 'tambah_master'])->name('store');
+    });
+
+    // User
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
 });
-
-//Dashboard
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-//Penjualan
-Route::get('/penjualan', [PenjualanController::class, 'penjualan'])->name('penjualan');
-
-//History
-Route::get('/history', [PenjualanController::class, 'history'])->name('history');
-
-//Pelanggan
-Route::get('/pelanggan', [PenjualanController::class, 'pelanggan'])->name('pelanggan');
-
-//barang
-Route::get('/semua-barang', [BarangController::class, 'barang'])->name('semua-barang');
-
-//kategori
-Route::get('/kategori', [BarangController::class, 'kategori'])->name('kategori');
-Route::get('/tambah_kategori', [BarangController::class, 'kategori_tambah'])->name('kategori.tambah');
-Route::post('/kategori', [BarangController::class, 'tambah_kategori'])->name('store.kategori');
-
-//merk
-Route::get('/merk', [BarangController::class, 'merk'])->name('merk');
-Route::get('/tambah_merk', [BarangController::class, 'merk_tambah'])->name('merk_tambah');
-Route::post('/merk', [BarangController::class, 'tambah_merk'])->name('store.merk');
-
-//Laporan
-Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
-
-//Master Barang
-Route::get('/master_barang', [MasterController::class, 'index'])->name('master');
-Route::get('/tambah_master', [MasterController::class, 'tambah'])->name('tambah.master');
-Route::post('/master_barang', [MasterController::class, 'tambah_master'])->name('master.store');
-
-//User
-Route::get('/user', [UserController::class, 'index'])->name('user');

@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Pelanggan;
-use App\Models\Kasir;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,13 +18,18 @@ class Transaksi extends Model
         'total_pembayaran',
     ];
 
-    public function Pelanggan()
+    public function pelanggan()
     {
         return $this->belongsTo(Pelanggan::class, 'id_pelanggan');
     }
 
-    public function Kasir()
+    public function kasir()
     {
         return $this->belongsTo(Kasir::class, 'id_kasir');
+    }
+
+    public function detailTransaksi()
+    {
+        return $this->hasMany(DetailTransaksi::class, 'id_transaksi');
     }
 }

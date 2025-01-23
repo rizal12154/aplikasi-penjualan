@@ -14,6 +14,11 @@ class Kasir extends Model
     protected $fillable = [
         'nama',
         'username',
-        'password'
+        'password',
     ];
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class, 'id_kasir');
+    }
 }

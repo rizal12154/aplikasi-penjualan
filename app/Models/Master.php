@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Kategori;
-use App\Models\Merk;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +18,7 @@ class Master extends Model
         'harga_jual',
         'id_kategori',
         'id_merk',
-        'satuan'
+        'satuan',
     ];
 
     public function kategori()

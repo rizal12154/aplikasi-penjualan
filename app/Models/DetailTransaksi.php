@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Transaksi;
-use App\Models\Barang;
-use App\Models\Master;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,17 +20,17 @@ class DetailTransaksi extends Model
         'subtotal',
     ];
 
-    public function Transaksi()
+    public function transaksi()
     {
         return $this->belongsTo(Transaksi::class, 'id_transaksi');
     }
 
-    public function Barang()
+    public function barang()
     {
         return $this->belongsTo(Barang::class, 'id_barang');
     }
 
-    public function Master()
+    public function masterBarang()
     {
         return $this->belongsTo(Master::class, 'id_master');
     }

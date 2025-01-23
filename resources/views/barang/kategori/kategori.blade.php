@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
-                    <a href="/tambah_kategori" class="btn btn-primary mb-3">Tambah Kategori</a>
+                    <a href="{{ route('barang.kategori.create') }}" class="btn btn-primary mb-3">Tambah Kategori</a>
                     <table class="table table-bordered">
                         <thead>
                             <tr>

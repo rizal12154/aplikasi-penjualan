@@ -9,18 +9,52 @@ use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
+    //Barang Start
     public function barang()
     {
-        $barang = Barang::all();
-        return view('barang.index', compact('barang'));
+        $barang = Barang::with(['kategori', 'merk'])->get();
+        $no = 1;
+        return view('barang.index', compact('barang', 'no'));
     }
 
+
+    public function tambah_barang()
+    {
+        return view('barang.tambah');
+    }
+
+    public function store_barang(Request $request)
+    {
+        $request->validate([
+            'id_kategori' => 'required|exists:kategori, id',
+            'id_merk' => 'required|exists:merk, id',
+            'kode_barang' => 'required|string|max:255',
+            'nama_barang' => 'required|string|max:255',
+            'harga_beli' => 'required|numeric',
+            'harga_jual' => 'required|numeric',
+            'stok' => 'required|numeric',
+        ]);
+
+        $data = [
+            'id_kategori' => $request->id_kategori,
+            'id_merk' => $request->id_merk,
+            'kode_barang' => $request->kode_barang,
+            'nama_barang' => $request->nama_barang,
+            'harga_beli' => $request->harga_beli,
+            'harga_jual' => $request->harga_jual,
+            'stok' => $request->stok
+        ];
+
+        Barang::create($data);
+        return redirect('/barang')->with('success', 'Barang Telah Ditambahkan');
+    }
 
     // Kategori Start
     public function kategori()
     {
         $kategori = Kategori::all();
-        return view('barang.kategori.kategori', compact('kategori'));
+        $no = 1;
+        return view('barang.kategori.kategori', compact('kategori', 'no'));
     }
 
     public function kategori_tambah()
@@ -28,7 +62,7 @@ class BarangController extends Controller
         return view('barang.kategori.tambah');
     }
 
-    public function tambah_kategori(Request $request)
+    public function kategori_store(Request $request)
     {
         $request->validate([
             'nama' => 'required|string|max:255'
@@ -46,7 +80,8 @@ class BarangController extends Controller
     public function merk()
     {
         $merk = Merk::all();
-        return view('barang.merk.merk', compact('merk'));
+        $no = 1;
+        return view('barang.merk.merk', compact('merk', 'no'));
     }
 
     public function merk_tambah()
@@ -54,13 +89,15 @@ class BarangController extends Controller
         return view('barang.merk.tambah');
     }
 
-    public function tambah_merk(Request $request)
+    public function merk_store(Request $request)
     {
         $request->validate([
             'nama' => 'required|string|max:255'
         ]);
 
-        $data = $request->only(['nama']);
+        $data = [
+            'nama' => $request->nama,
+        ];
 
         Merk::create($data);
         return redirect('/merk')->with('success', 'Merk Telah di Tambahkan');

@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
-                    <a href="{{ ('merk_tambah') }}" class="btn btn-primary mb-3">Tambah Merk</a>
+                    <a href="{{ route('merk.create') }}" class="btn btn-primary mb-3">Tambah Merk</a>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
