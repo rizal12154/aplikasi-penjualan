@@ -9,13 +9,18 @@ class Kasir extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
     protected $table = 'kasir';
+
     protected $fillable = [
         'nama',
         'username',
+        'email',
         'password',
+        'status'
     ];
+
+    // Sembunyikan password
+    protected $hidden = ['password'];
 
     public function transaksi()
     {

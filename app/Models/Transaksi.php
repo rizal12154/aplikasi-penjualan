@@ -9,13 +9,21 @@ class Transaksi extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
     protected $table = 'transaksi';
+
     protected $fillable = [
         'id_pelanggan',
         'id_kasir',
         'tanggal',
         'total_pembayaran',
+        'metode_pembayaran',
+        'catatan'
+    ];
+
+    // Tambahkan casting
+    protected $casts = [
+        'tanggal' => 'datetime',
+        'total_pembayaran' => 'decimal:2'
     ];
 
     public function pelanggan()

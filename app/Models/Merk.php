@@ -9,20 +9,14 @@ class Merk extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
     protected $table = 'merk';
+
     protected $fillable = [
-        'id',
-        'nama',
+        'nama'
     ];
 
     public function barang()
     {
         return $this->hasMany(Barang::class, 'id_merk');
-    }
-
-    public function masterBarang()
-    {
-        return $this->hasMany(Master::class, 'id_merk');
     }
 }

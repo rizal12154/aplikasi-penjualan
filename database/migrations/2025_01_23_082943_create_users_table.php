@@ -12,7 +12,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('username')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('password');
+            $table->enum('role', ['admin', 'kasir', 'manajer'])->default('kasir');
+            $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
             $table->rememberToken();
             $table->timestamps();
         });

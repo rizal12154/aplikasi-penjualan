@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
-                    <a href="{{ 'tambah.master' }}" class="btn btn-primary mb-3">Tambah Barang</a>
+                    <a href="{{ route('master.create') }}" class="btn btn-primary mb-3">Tambah Barang</a>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -32,7 +32,13 @@
                                     <td>{{ $get->harga_jual }}</td>
                                     <td>{{ $get->kategori->nama }}</td>
                                     <td>{{ $get->merk->nama }}</td>
-                                    <td>{{ }}</td>
+                                    <td>
+                                        <span
+                                            class="badge 
+                        {{ $get->status == 'Ada' ? 'badge bg-label-success' : ($get->status == 'Hampir Habis' ? 'badge bg-label-warning' : 'badge bg-label-danger') }}">
+                                            {{ $get->status }}
+                                        </span>
+                                    </td>
                                     <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

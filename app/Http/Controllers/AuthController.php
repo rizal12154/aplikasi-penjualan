@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -18,30 +19,31 @@ class AuthController extends Controller
     {
         $request->validate([
             'username' => 'required|string',
-            'password' => 'required',
+            'password' => 'required|string',
         ]);
 
-        $username = $request->input('username');
-        $password = md5($request->input('password')); // Hash password dengan MD5
+        // Cari user berdasarkan username
+        $user = \App\Models\User::where('username', $request->username)->first();
 
-        // Cek apakah username dan password cocok
-        $user = \App\Models\User::where('username', $username)
-            ->where('password', $password)
-            ->first();
+        // Periksa password
+        if ($user && Hash::check($request->password, $user->password)) {
+            // Periksa status user
+            if ($user->status !== 'aktif') {
+                return back()->with('error', 'Akun Anda tidak aktif.');
+            }
 
-        if ($user) {
-            // Login pengguna secara manual
-            Auth::login($user, $request->remember);
+            // Login pengguna
+            Auth::login($user, $request->boolean('remember'));
 
             // Redirect ke dashboard
             return redirect()->intended('/dashboard');
         }
 
         // Jika login gagal
-        return back()->with('error', 'Username atau password salah.');
+        return back()->withErrors([
+            'username' => 'Username atau password salah.',
+        ])->withInput($request->only('username'));
     }
-
-
 
     // Proses logout
     public function logout(Request $request)

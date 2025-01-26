@@ -9,15 +9,19 @@ class DetailTransaksi extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
     protected $table = 'detail_transaksi';
+
     protected $fillable = [
-        'id',
         'id_transaksi',
         'id_barang',
-        'id_master',
         'kuantitas',
-        'subtotal',
+        'subtotal'
+    ];
+
+    // Tambahkan casting
+    protected $casts = [
+        'kuantitas' => 'integer',
+        'subtotal' => 'decimal:2'
     ];
 
     public function transaksi()
@@ -28,10 +32,5 @@ class DetailTransaksi extends Model
     public function barang()
     {
         return $this->belongsTo(Barang::class, 'id_barang');
-    }
-
-    public function masterBarang()
-    {
-        return $this->belongsTo(Master::class, 'id_master');
     }
 }

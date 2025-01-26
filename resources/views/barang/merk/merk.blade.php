@@ -7,12 +7,12 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
-                    <a href="{{ route('merk.create') }}" class="btn btn-primary mb-3">Tambah Merk</a>
+                    <a href="{{ route('barang.merk.create') }}" class="btn btn-primary mb-3">Tambah Merk</a>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Nama Barang</th>
+                                <th>Merk</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>

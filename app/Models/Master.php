@@ -10,15 +10,21 @@ class Master extends Model
     use HasFactory;
 
     protected $table = 'master_barang';
+
+    protected $primaryKey = 'id_master';
+
     protected $fillable = [
-        'id_master',
-        'nama_barang',
-        'stok',
-        'harga_beli',
-        'harga_jual',
+        'kode_master',
+        'nama_master',
+        'deskripsi',
         'id_kategori',
         'id_merk',
-        'satuan',
+        'status'
+    ];
+
+    // Tambahkan casting untuk tipe data
+    protected $casts = [
+        'status' => 'string'
     ];
 
     public function kategori()
@@ -29,5 +35,11 @@ class Master extends Model
     public function merk()
     {
         return $this->belongsTo(Merk::class, 'id_merk');
+    }
+
+    // Relasi dengan barang
+    public function barang()
+    {
+        return $this->hasMany(Barang::class, 'id_master');
     }
 }

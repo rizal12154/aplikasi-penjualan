@@ -12,7 +12,7 @@
                             <h5 class="mb-0">Tambah Kategori</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('barang.barang.store') }}" method="post">
+                            <form action="{{ route('barang.kategori.store') }}" method="post">
                                 @csrf
                                 <div class="input-group input-group-merge mb-6">
                                     <span id="nama" class="input-group-text"><i class="ri-user-line"></i></span>

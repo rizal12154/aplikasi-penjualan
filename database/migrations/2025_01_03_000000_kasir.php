@@ -6,26 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        // Tabel merk
+        // Tabel merk (tetap sama)
         Schema::create('merk', function (Blueprint $table) {
             $table->id();
             $table->string('nama')->unique();
             $table->timestamps();
         });
 
-        // Tabel kategori
+        // Tabel kategori (tetap sama)
         Schema::create('kategori', function (Blueprint $table) {
             $table->id();
             $table->string('nama')->unique();
             $table->timestamps();
         });
 
-        // Tabel barang
+        // Tabel barang (diperbarui)
         Schema::create('barang', function (Blueprint $table) {
             $table->id();
             $table->string('kode_barang')->unique();
@@ -35,10 +32,13 @@ return new class extends Migration
             $table->decimal('harga_beli', 10, 2);
             $table->decimal('harga_jual', 10, 2);
             $table->integer('stok');
+            $table->integer('stok_minimum')->default(0);
+            $table->integer('stok_maksimum')->default(0);
+            $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
             $table->timestamps();
         });
 
-        // Tabel pelanggan
+        // Tabel pelanggan (tetap sama)
         Schema::create('pelanggan', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
@@ -47,26 +47,30 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Tabel kasir
+        // Tabel kasir (diperbarui)
         Schema::create('kasir', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->string('username')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('password');
+            $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
             $table->timestamps();
         });
 
-        // Tabel transaksi
+        // Tabel transaksi (diperbarui)
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_pelanggan')->nullable()->constrained('pelanggan')->onDelete('set null');
             $table->foreignId('id_kasir')->constrained('kasir')->onDelete('cascade');
             $table->dateTime('tanggal');
             $table->decimal('total_pembayaran', 10, 2);
+            $table->enum('metode_pembayaran', ['tunai', 'transfer', 'kredit'])->default('tunai');
+            $table->text('catatan')->nullable();
             $table->timestamps();
         });
 
-        // Tabel detail transaksi
+        // Tabel detail transaksi (tetap sama)
         Schema::create('detail_transaksi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_transaksi')->constrained('transaksi')->onDelete('cascade');
@@ -77,9 +81,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('detail_transaksi');

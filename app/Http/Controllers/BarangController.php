@@ -4,19 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Merk;
+use App\Models\Master;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class BarangController extends Controller
 {
-    //Barang Start
+    // Barang Start
     public function barang()
     {
         $barang = Barang::with(['kategori', 'merk'])->get();
-        $no = 1;
-        return view('barang.index', compact('barang', 'no'));
+        return view('barang.index', [
+            'barang' => $barang,
+            'no' => 1
+        ]);
     }
-
 
     public function tambah_barang()
     {
@@ -28,35 +31,53 @@ class BarangController extends Controller
     public function store_barang(Request $request)
     {
         $request->validate([
-            'id_kategori' => 'required|exists:kategori,id_kategori',
-            'id_merk' => 'required|exists:merk,id_merk',
+            'id_kategori' => 'required|exists:kategori,id',
+            'id_merk' => 'required|exists:merk,id',
             'kode_barang' => 'required|string|unique:barang,kode_barang',
             'nama_barang' => 'required|string',
             'harga_beli' => 'required|numeric|min:0',
             'harga_jual' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
+            'stok_minimum' => 'nullable|integer|min:0',
+            'stok_maksimum' => 'nullable|integer|min:0',
         ]);
 
-        $data = [
+        // Buat master barang terlebih dahulu
+        $masterBarang = Master::create([
+            'kode_master' => 'MST-' . Str::upper(Str::random(6)),
+            'nama_master' => $request->nama_barang,
+            'id_kategori' => $request->id_kategori,
+            'id_merk' => $request->id_merk,
+            'status' => 'aktif'
+        ]);
+
+        // Buat barang dengan referensi ke master barang
+        $barang = Barang::create([
+            'id_master' => $masterBarang->id_master,
             'id_kategori' => $request->id_kategori,
             'id_merk' => $request->id_merk,
             'kode_barang' => $request->kode_barang,
             'nama_barang' => $request->nama_barang,
             'harga_beli' => $request->harga_beli,
             'harga_jual' => $request->harga_jual,
-            'stok' => $request->stok
-        ];
+            'stok' => $request->stok,
+            'stok_minimum' => $request->stok_minimum ?? 0,
+            'stok_maksimum' => $request->stok_maksimum ?? 0,
+            'status' => 'aktif'
+        ]);
 
-        Barang::create($data);
-        return redirect('/barang')->with('success', 'Barang Telah Ditambahkan');
+        return redirect()->route('barang.index')
+            ->with('success', 'Barang Telah Ditambahkan');
     }
 
     // Kategori Start
     public function kategori()
     {
         $kategori = Kategori::all();
-        $no = 1;
-        return view('barang.kategori.kategori', compact('kategori', 'no'));
+        return view('barang.kategori.kategori', [
+            'kategori' => $kategori,
+            'no' => 1
+        ]);
     }
 
     public function kategori_tambah()
@@ -67,23 +88,25 @@ class BarangController extends Controller
     public function kategori_store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255'
+            'nama' => 'required|string|max:255|unique:kategori,nama'
         ]);
 
-        $data = $request->only(['nama']);
+        Kategori::create([
+            'nama' => $request->nama
+        ]);
 
-        Kategori::create($data);
-        return redirect('/kategori')->with('success', 'Kategori Telah Ditambahkan');
+        return redirect()->route('barang.kategori.index')
+            ->with('success', 'Kategori Telah Ditambahkan');
     }
 
-    //Kategori End
-
-    //Merk Start
+    // Merk Start
     public function merk()
     {
         $merk = Merk::all();
-        $no = 1;
-        return view('barang.merk.merk', compact('merk', 'no'));
+        return view('barang.merk.merk', [
+            'merk' => $merk,
+            'no' => 1
+        ]);
     }
 
     public function merk_tambah()
@@ -94,16 +117,14 @@ class BarangController extends Controller
     public function merk_store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255'
+            'nama' => 'required|string|max:255|unique:merk,nama'
         ]);
 
-        $data = [
-            'nama' => $request->nama,
-        ];
+        Merk::create([
+            'nama' => $request->nama
+        ]);
 
-        Merk::create($data);
-        return redirect('/merk')->with('success', 'Merk Telah di Tambahkan');
+        return redirect()->route('barang.merk.index')
+            ->with('success', 'Merk Telah Ditambahkan');
     }
-
-    //Merk End
 }
