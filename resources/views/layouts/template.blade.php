@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed layout-compact " dir="ltr" data-theme="theme-default"
-    data-assets-path="assets/" data-template="horizontal-menu-template" data-style="light">
+    data-assets-path="{{ asset('') }}assets/" data-template="horizontal-menu-template" data-style="light">
 
 <head>
     <!-- Style -->
     @include('layouts.style')
+    @livewireStyles
     <title>@yield('title')</title>
 </head>
 
@@ -53,7 +54,9 @@
     <div class="drag-target"></div>
 
     <!-- Core JS -->
+    @livewireScripts
     @include('layouts.script')
+
 
 </body>
 

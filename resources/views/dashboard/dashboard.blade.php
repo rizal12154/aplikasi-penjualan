@@ -11,7 +11,8 @@
                     <div class="d-flex align-items-end row">
                         <div class="col-md-6 order-2 order-md-1">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Selamat Datang <span class="fw-bold">John!</span></h4>
+                                <h4 class="card-title mb-4">Selamat Datang <span
+                                        class="fw-bold">{{ auth()->user()->name }}</span></h4>
                                 <p class="mb-0">You have done 68% 😎 more sales today.</p>
                                 <p>Check your new badge in your profile.</p>
                                 <a href="/kasir" class="btn btn-primary">Transaksi</a>

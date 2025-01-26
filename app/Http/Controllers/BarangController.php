@@ -20,19 +20,21 @@ class BarangController extends Controller
 
     public function tambah_barang()
     {
-        return view('barang.tambah');
+        $merk = Merk::all();
+        $kategori = Kategori::all();
+        return view('barang.tambah', compact('merk', 'kategori'));
     }
 
     public function store_barang(Request $request)
     {
         $request->validate([
-            'id_kategori' => 'required|exists:kategori, id',
-            'id_merk' => 'required|exists:merk, id',
-            'kode_barang' => 'required|string|max:255',
-            'nama_barang' => 'required|string|max:255',
-            'harga_beli' => 'required|numeric',
-            'harga_jual' => 'required|numeric',
-            'stok' => 'required|numeric',
+            'id_kategori' => 'required|exists:kategori,id_kategori',
+            'id_merk' => 'required|exists:merk,id_merk',
+            'kode_barang' => 'required|string|unique:barang,kode_barang',
+            'nama_barang' => 'required|string',
+            'harga_beli' => 'required|numeric|min:0',
+            'harga_jual' => 'required|numeric|min:0',
+            'stok' => 'required|integer|min:0',
         ]);
 
         $data = [
