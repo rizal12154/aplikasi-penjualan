@@ -79,6 +79,34 @@ return new class extends Migration
             $table->decimal('subtotal', 10, 2);
             $table->timestamps();
         });
+
+        Schema::create('master_barang', function (Blueprint $table) {
+            $table->id('id_master');
+            $table->string('kode_master')->unique();
+            $table->string('nama_master');
+            $table->text('deskripsi')->nullable();
+
+            // Foreign key untuk kategori
+            $table->unsignedBigInteger('id_kategori');
+            $table->foreign('id_kategori')
+                ->references('id')
+                ->on('kategori')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+
+            // Foreign key untuk merk
+            $table->unsignedBigInteger('id_merk');
+            $table->foreign('id_merk')
+                ->references('id')
+                ->on('merk')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+
+            // Status dengan default value
+            $table->string('status')->default('aktif');
+
+            $table->timestamps();
+        });
     }
 
     public function down(): void
@@ -90,5 +118,6 @@ return new class extends Migration
         Schema::dropIfExists('barang');
         Schema::dropIfExists('kategori');
         Schema::dropIfExists('merk');
+        Schema::dropIfExists('master_barang');
     }
 };

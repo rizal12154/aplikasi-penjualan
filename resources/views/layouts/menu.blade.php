@@ -67,7 +67,7 @@
 
             <!-- Laporan -->
             <li class="menu-item">
-                <a href="{{ route('laporan.index') }}" class="menu-link">
+                <a href="{{ route('laporan.penjualan') }}" class="menu-link">
                     <i class="menu-icon tf-icons ri-article-line"></i>
                     <div data-i18n="Laporan">Laporan</div>
                 </a>

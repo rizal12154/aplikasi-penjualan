@@ -7,54 +7,62 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
-                    <a href="{{ route('master.create') }}" class="btn btn-primary mb-3">Tambah Barang</a>
+                    <a href="{{ route('master.create') }}" class="btn btn-primary mb-3">Tambah</a>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Nama Barang</th>
-                                <th>Stok</th>
-                                <th>Harga Beli</th>
-                                <th>Harga Jual</th>
+                                <th>Kode Master</th>
+                                <th>Nama Master</th>
                                 <th>Kategori</th>
-                                <th>Jenis</th>
+                                <th>Merk</th>
+                                <th>Deskripsi</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        @foreach ($master as $get)
-                            <tbody>
+                        <tbody>
+                            @foreach ($master as $get)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td>{{ $get->nama_barang }}</td>
-                                    <td>{{ $get->stok }}</td>
-                                    <td>{{ $get->harga_beli }}</td>
-                                    <td>{{ $get->harga_jual }}</td>
-                                    <td>{{ $get->kategori->nama }}</td>
-                                    <td>{{ $get->merk->nama }}</td>
+                                    <td>{{ $get->kode_master }}</td>
+                                    <td>{{ $get->nama_master }}</td>
+                                    <td>{{ $get->kategori->nama ?? '-' }}</td>
+                                    <td>{{ $get->merk->nama ?? '-' }}</td>
+                                    <td>{{ $get->deskripsi ?? '-' }}</td>
                                     <td>
-                                        <span
-                                            class="badge 
-                        {{ $get->status == 'Ada' ? 'badge bg-label-success' : ($get->status == 'Hampir Habis' ? 'badge bg-label-warning' : 'badge bg-label-danger') }}">
-                                            {{ $get->status }}
-                                        </span>
+                                        <!-- Menampilkan status -->
+                                        @if ($get->status == 'tidak ada')
+                                            <span class="badge bg-danger">Tidak Ada</span>
+                                        @elseif ($get->status == 'hampir habis')
+                                            <span class="badge bg-warning">Hampir Habis</span>
+                                        @else
+                                            <span class="badge bg-success">{{ ucfirst($get->status) }}</span>
+                                        @endif
                                     </td>
                                     <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                 data-bs-toggle="dropdown"><i class="ri-more-2-line"></i></button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="/tambah_master"><i
-                                                        class="ri-pencil-line me-1"></i>
-                                                    Edit</a>
-                                                <a class="dropdown-item" href="/hapus"><i
-                                                        class="ri-delete-bin-7-line me-1"></i> Hapus</a>
+                                                <a class="dropdown-item" href="{{ route('master.edit', $get->id_master) }}">
+                                                    <i class="ri-pencil-line me-1"></i> Edit
+                                                </a>
+                                                <form action="{{ route('master.delete', $get->id_master) }}" method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="dropdown-item" type="submit"
+                                                        onclick="return confirm('Yakin ingin menghapus master barang ini?')">
+                                                        <i class="ri-delete-bin-7-line me-1"></i> Hapus
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                            </tbody>
-                        @endforeach
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>

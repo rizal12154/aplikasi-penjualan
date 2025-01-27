@@ -20,15 +20,16 @@
                     <div class="card-body mt-3">
                         <div class="mb-3">
                             <label for="pelanggan" class="form-label">Pelanggan</label>
-                            <select wire:model="pelanggan" id="pelanggan" class="form-select">
+                            <select wire:model.live="pelanggan" id="pelanggan" class="form-select">
                                 <option value="0">-- Umum --</option>
-                                <option value="1">Pelanggan 1</option>
-                                <option value="2">Pelanggan 2</option>
+                                @foreach ($pelangganList as $p)
+                                    <option value="{{ $p->id }}">{{ $p->nama }}</option>
+                                @endforeach
                             </select>
                         </div>
-                        <p><strong>Telp / HP:</strong> Tidak ada</p>
-                        <p><strong>Alamat:</strong> Tidak ada</p>
-                        <p><strong>Info Lain:</strong> Tidak ada</p>
+                        <p><strong>Telp / HP:</strong> {{ $pelangganInfo['telp'] }}</p>
+                        <p><strong>Alamat:</strong> {{ $pelangganInfo['alamat'] }}</p>
+                        <p><strong>Info Lain:</strong> {{ $pelangganInfo['info_lain'] }}</p>
                     </div>
                 </div>
             </div>
@@ -55,6 +56,7 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>
+                                    <input type="hidden" wire:model="items.{{ $index }}.barang_id">
                                     <input type="text" class="form-control"
                                         wire:input="updateItem({{ $index }}, 'kode_barang', $event.target.value)"
                                         value="{{ $item['kode_barang'] }}">
@@ -62,12 +64,12 @@
                                 <td>
                                     <input type="text" class="form-control"
                                         wire:input="updateItem({{ $index }}, 'nama_barang', $event.target.value)"
-                                        value="{{ $item['nama_barang'] }}">
+                                        value="{{ $item['nama_barang'] }}" disabled>
                                 </td>
                                 <td>
                                     <input type="number" class="form-control"
                                         wire:input="updateItem({{ $index }}, 'harga', $event.target.value)"
-                                        value="{{ $item['harga'] }}">
+                                        value="{{ $item['harga'] }}" disabled>
                                 </td>
                                 <td>
                                     <input type="number" class="form-control"
@@ -97,7 +99,7 @@
         <div></div>
         <div>
             <label for="bayar">Bayar (F8):</label>
-            <input type="number" id="bayar" wire:model.debounce.500ms="bayar" class="form-control mb-2">
+            <input type="number" id="bayar" wire:model.debounce="bayar" class="form-control mb-2">
             <p>Kembali: Rp {{ number_format($kembali, 0, ',', '.') }}</p>
             <button class="btn btn-warning" onclick="printNota()">Cetak (F9)</button>
             <button class="btn btn-success" wire:click="saveTransaction">Simpan (F10)</button>
@@ -122,9 +124,9 @@
                 <tbody>
                     @foreach ($transaksi->details as $detail)
                         <tr>
-                            <td>{{ $detail->barang->nama_barang }}</td>
+                            <td>{{ $detail->barang->nama_barang ?? 'Barang Tidak Ditemukan' }}</td>
                             <td>{{ $detail->kuantitas }}</td>
-                            <td>Rp {{ number_format($detail->barang->harga_jual, 0, ',', '.') }}</td>
+                            <td>Rp {{ number_format($detail->barang->harga ?? 0, 0, ',', '.') }}</td>
                             <td>Rp {{ number_format($detail->subtotal, 0, ',', '.') }}</td>
                         </tr>
                     @endforeach
@@ -149,7 +151,6 @@
             document.body.innerHTML = notaContent;
             window.print();
             document.body.innerHTML = originalContent;
-            window.location.reload(); // Reload untuk kembali ke halaman utama
         }
     </script>
 </div>

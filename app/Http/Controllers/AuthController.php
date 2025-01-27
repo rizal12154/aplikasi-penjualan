@@ -26,17 +26,27 @@ class AuthController extends Controller
         $user = \App\Models\User::where('username', $request->username)->first();
 
         // Periksa password
-        if ($user && Hash::check($request->password, $user->password)) {
-            // Periksa status user
-            if ($user->status !== 'aktif') {
-                return back()->with('error', 'Akun Anda tidak aktif.');
+        if ($user) {
+            // Cek jika password masih dalam format MD5
+            if (md5($request->password) === $user->password) {
+                // Konversi password ke hash Laravel yang aman
+                $user->password = Hash::make($request->password);
+                $user->save();
             }
 
-            // Login pengguna
-            Auth::login($user, $request->boolean('remember'));
+            // Gunakan Hash::check untuk verifikasi
+            if (Hash::check($request->password, $user->password)) {
+                // Periksa status user
+                if ($user->status !== 'aktif') {
+                    return back()->with('error', 'Akun Anda tidak aktif.');
+                }
 
-            // Redirect ke dashboard
-            return redirect()->intended('/dashboard');
+                // Login pengguna
+                Auth::login($user, $request->boolean('remember'));
+
+                // Redirect ke dashboard
+                return redirect()->intended('/dashboard');
+            }
         }
 
         // Jika login gagal
@@ -51,7 +61,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
         return redirect('/login');
     }
 }

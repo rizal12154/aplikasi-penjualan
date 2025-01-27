@@ -12,7 +12,7 @@
                             <h5 class="mb-0">Tambah Barang</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('barang.store') }}" method="post">
+                            <form action="{{ route('barang.store') }}" method="POST">
                                 @csrf
 
                                 <!-- Kode Barang -->
@@ -44,7 +44,8 @@
                                         class="form-select @error('id_merk') is-invalid @enderror" required>
                                         <option value="">Pilih Merk</option>
                                         @foreach ($merk as $get)
-                                            <option value="{{ $get->id_merk }}">
+                                            <option value="{{ $get->id }}"
+                                                {{ old('id_merk') == $get->id ? 'selected' : '' }}>
                                                 {{ $get->nama }}
                                             </option>
                                         @endforeach
@@ -61,7 +62,8 @@
                                         class="form-select @error('id_kategori') is-invalid @enderror" required>
                                         <option value="">Pilih Kategori</option>
                                         @foreach ($kategori as $get)
-                                            <option value="{{ $get->id_kategori }}">
+                                            <option value="{{ $get->id }}"
+                                                {{ old('id_kategori') == $get->id ? 'selected' : '' }}>
                                                 {{ $get->nama }}
                                             </option>
                                         @endforeach
@@ -78,6 +80,28 @@
                                         class="form-control @error('stok') is-invalid @enderror"
                                         value="{{ old('stok') }}" required>
                                     @error('stok')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- Stok Minimum -->
+                                <div class="mb-3">
+                                    <label for="stok_minimum" class="form-label">Stok Minimum</label>
+                                    <input type="number" name="stok_minimum" id="stok_minimum"
+                                        class="form-control @error('stok_minimum') is-invalid @enderror"
+                                        value="{{ old('stok_minimum') }}">
+                                    @error('stok_minimum')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- Stok Maksimum -->
+                                <div class="mb-3">
+                                    <label for="stok_maksimum" class="form-label">Stok Maksimum</label>
+                                    <input type="number" name="stok_maksimum" id="stok_maksimum"
+                                        class="form-control @error('stok_maksimum') is-invalid @enderror"
+                                        value="{{ old('stok_maksimum') }}">
+                                    @error('stok_maksimum')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -106,10 +130,10 @@
 
                                 <!-- Submit Button -->
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="/master_barang" class="btn btn-danger">Kembali</a>
+                                <a href="{{ route('barang.index') }}" class="btn btn-danger">Kembali</a>
                             </form>
-
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -24,6 +24,8 @@ class Barang extends Model
         'status'
     ];
 
+    protected $appends = ['status_barang']; // Tambahkan atribut tambahan
+
     // Tambahkan casting untuk kolom numerik
     protected $casts = [
         'harga_beli' => 'decimal:2',
@@ -43,8 +45,35 @@ class Barang extends Model
         return $this->belongsTo(Kategori::class, 'id_kategori');
     }
 
-    public function detailTransaksi()
+    // Tambahkan method di app/Models/Barang.php
+    public function getStatusBarangAttribute()
     {
-        return $this->hasMany(DetailTransaksi::class, 'id_barang');
+        // Jika stok 0, maka "Tidak ada"
+        if ($this->stok <= 0) {
+            return 'Tidak ada';
+        }
+
+        // Jika stok kurang dari stok minimum, maka "Hampir Habis"
+        if ($this->stok < $this->stok_minimum) {
+            return 'Hampir Habis';
+        }
+
+        // Jika stok masih di atas stok minimum, maka "Ada"
+        return 'Ada';
+    }
+
+    // Tambahkan method untuk memberi warna status
+    public function getStatusColorAttribute()
+    {
+        switch ($this->status_barang) {
+            case 'Tidak ada':
+                return 'danger';
+            case 'Hampir Habis':
+                return 'warning';
+            case 'Ada':
+                return 'success';
+            default:
+                return 'secondary';
+        }
     }
 }

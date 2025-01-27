@@ -35,6 +35,7 @@ class MasterController extends Controller
             'id_merk' => 'required|exists:merk,id',
             'nama_master' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
+            'status' => 'required|in:ada,tidak ada,hampir habis'
         ]);
 
         $master = Master::create([
@@ -43,9 +44,10 @@ class MasterController extends Controller
             'deskripsi' => $request->deskripsi,
             'id_kategori' => $request->id_kategori,
             'id_merk' => $request->id_merk,
-            'status' => 'aktif'
+            'status' => $request->status
         ]);
 
+        $master->load(['kategori', 'merk']);
         return redirect()->route('master.index')
             ->with('success', 'Master Produk Berhasil Ditambahkan');
     }
@@ -65,7 +67,7 @@ class MasterController extends Controller
             'id_merk' => 'required|exists:merk,id',
             'nama_master' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'status' => 'in:aktif,non-aktif'
+            'status' => 'in:ada,tidak ada'
         ]);
 
         $master = Master::findOrFail($id);
@@ -75,7 +77,7 @@ class MasterController extends Controller
             'id_merk' => $request->id_merk,
             'nama_master' => $request->nama_master,
             'deskripsi' => $request->deskripsi,
-            'status' => $request->status ?? 'aktif'
+            'status' => $request->status ?? 'tidak ada'
         ]);
 
         return redirect()->route('master.index')
