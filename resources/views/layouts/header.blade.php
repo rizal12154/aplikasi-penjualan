@@ -39,7 +39,7 @@
                         </svg>
                     </span>
                 </span>
-                <span class="app-brand-text demo menu-text fw-semibold">Kasir</span>
+                <a href="{{ route('kasir.index') }}" class="px-2 py-2"><span class="app-brand-text demo menu-text fw-semibold">Kasir</span></a>
             </a>
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
                 <i class="ri-close-fill align-middle"></i>

@@ -10,36 +10,21 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>No</th>
+                <th>No. Nota</th>
                 <th>Tanggal</th>
                 <th>Pelanggan</th>
-                <th>Kasir</th>
-                <th>Total Pembayaran</th>
+                <th>Total Harga</th>
                 <th>Status</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($transaksi as $get)
+            @foreach ($transaksi as $trx)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $get->tanggal->format('d-m-Y') }}</td>
-                    <td>{{ $get->pelanggan->nama }}</td>
-                    <td>{{ $get->kasir->nama }}</td>
-                    <td>Rp {{ number_format($get->total_pembayaran, 0, ',', '.') }}</td>
-                    <td>{{ $get->status }}</td>
-                    <td>
-                        <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                <i class="ri-more-2-line"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#"><i class="ri-pencil-line me-1"></i> Edit</a>
-                                <a class="dropdown-item" href="#"><i class="ri-delete-bin-7-line me-1"></i>
-                                    Hapus</a>
-                            </div>
-                        </div>
-                    </td>
+                    <td>{{ $trx->id }}</td>
+                    <td>{{ $trx->tanggal }}</td>
+                    <td>{{ $trx->pelanggan ? $trx->pelanggan->nama : 'Pelanggan Tidak Diketahui' }}</td>
+                    <td>Rp {{ number_format($trx->total_harga, 0, ',', '.') }}</td>
+                    <td>{{ $trx->status }}</td>
                 </tr>
             @endforeach
         </tbody>

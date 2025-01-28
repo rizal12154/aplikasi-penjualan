@@ -34,8 +34,7 @@ Route::middleware('web')->group(function () {
             Route::put('/pelanggan/{id}', [PenjualanController::class, 'update_pelanggan'])->name('pelanggan.update');
             Route::delete('/pelanggan/{id}', [PenjualanController::class, 'destroy_pelanggan'])->name('delete-pelanggan');
         });
-
-        // Barang
+        
         // Barang
         Route::prefix('barang')->name('barang.')->group(function () {
             // Barang

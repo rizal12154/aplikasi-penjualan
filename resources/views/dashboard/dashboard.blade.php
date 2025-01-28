@@ -36,7 +36,7 @@
                                     <i class="ri-shopping-cart-2-line text-success ri-24px"></i>
                                 </h2>
                                 <h4>Semua Barang</h4>
-                                <h5></h5>
+                                <h5>{{ $totalBarang }}</h5>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                                     <i class="ri-global-line text-info ri-24px"></i>
                                 </h2>
                                 <h4>Total Transaksi</h4>
-                                <h5></h5>
+                                <h5>{{ $totalTransaksi }}</h5>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                                     <i class="ri-gift-line text-danger ri-24px"></i>
                                 </h2>
                                 <h4>Barang Tersedia</h4>
-                                <h5></h5>
+                                <h5>{{ $barangTersedia }}</h5>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                                     <i class="ri-user-3-line text-primary ri-24px"></i>
                                 </h2>
                                 <h4>User</h4>
-                                {{-- <h5>{{ $user }}</h5> --}}
+                                <h5>{{ $totalUser }}</h5>
                             </div>
                         </div>
                     </div>

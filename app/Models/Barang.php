@@ -45,7 +45,8 @@ class Barang extends Model
         return $this->belongsTo(Kategori::class, 'id_kategori');
     }
 
-    // Tambahkan method di app/Models/Barang.php
+    
+
     public function getStatusBarangAttribute()
     {
         // Jika stok 0, maka "Tidak ada"

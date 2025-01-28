@@ -12,6 +12,7 @@ class Kasir extends Model
     protected $table = 'kasir';
 
     protected $fillable = [
+        'id_user',
         'nama',
         'username',
         'email',
@@ -25,5 +26,10 @@ class Kasir extends Model
     public function transaksi()
     {
         return $this->hasMany(Transaksi::class, 'id_kasir');
+    }
+
+    public function User() 
+    {
+        return $this->belongsTo(User::class, 'id_user');
     }
 }

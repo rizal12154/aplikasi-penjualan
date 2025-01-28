@@ -8,35 +8,23 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>No. Nota</th>
                     <th>Tanggal</th>
                     <th>Pelanggan</th>
-                    <th>Total Pembayaran</th>
-                    <th>Detail Barang</th>
+                    <th>Total Harga</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($transaksi as $item)
+                @foreach ($transaksi as $trx)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->tanggal->format('d-m-Y') }}</td>
-                        <td>{{ $item->pelanggan->nama }}</td>
-                        <td>Rp {{ number_format($item->total_pembayaran, 0, ',', '.') }}</td>
-                        <td>
-                            <ul>
-                                @foreach ($item->detailTransaksi as $detail)
-                                    <li>
-                                        {{ $detail->barang->nama }} ({{ $detail->kuantitas }} x Rp
-                                        {{ number_format($detail->subtotal / $detail->kuantitas, 0, ',', '.') }})
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </td>
+                        <td>{{ $trx->id }}</td>
+                        <td>{{ $trx->tanggal }}</td>
+                        <td>{{ $trx->pelanggan ? $trx->pelanggan->nama : 'Pelanggan Tidak Diketahui' }}</td>
+                        <td>Rp {{ number_format($trx->total_harga, 0, ',', '.') }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-
         {{ $transaksi->links() }}
     </div>
 </div>
